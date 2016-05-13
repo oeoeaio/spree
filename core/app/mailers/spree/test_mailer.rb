@@ -1,5 +1,5 @@
 module Spree
-  class TestMailer < ActionMailer::Base
+  class TestMailer < BaseMailer
     def from_address
       MailMethod.current.preferred_mails_from
     end
