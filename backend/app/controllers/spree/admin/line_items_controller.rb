@@ -23,7 +23,9 @@ module Spree
 
       def destroy
         @line_item.destroy
-        render_order_form
+        respond_with(@line_item) do |format|
+          format.html { render_order_form }
+        end
       end
 
       def update
