@@ -119,8 +119,6 @@ Spree::Core::Engine.routes.append do
         put :fire
         get :fire
         post :resend
-        get :open_adjustments
-        get :close_adjustments
       end
 
       resource :customer, :controller => "orders/customer_details"

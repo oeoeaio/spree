@@ -3,7 +3,7 @@ module Spree
     class OrdersController < Spree::Admin::BaseController
       require 'spree/core/gateway_error'
       before_filter :initialize_order_events
-      before_filter :load_order, :only => [:show, :edit, :update, :fire, :resend, :open_adjustments, :close_adjustments]
+      before_filter :load_order, :only => [:show, :edit, :update, :fire, :resend]
 
       respond_to :html
 
@@ -96,22 +96,6 @@ module Spree
         flash[:success] = t(:order_email_resent)
 
         redirect_to :back
-      end
-
-      def open_adjustments
-        adjustments = @order.adjustments.where(:state => 'closed')
-        adjustments.update_all(:state => 'open')
-        flash[:success] = t(:all_adjustments_opened)
-
-        respond_with(@order) { |format| format.html { redirect_to :back } }
-      end
-
-      def close_adjustments
-        adjustments = @order.adjustments.where(:state => 'open')
-        adjustments.update_all(:state => 'closed')
-        flash[:success] = t(:all_adjustments_closed)
-
-        respond_with(@order) { |format| format.html { redirect_to :back } }
       end
 
       private
